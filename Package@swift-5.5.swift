@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "Spinetail",
+  name: "PrchVapor",
   platforms: [
     .macOS(.v10_15),
     .iOS(.v10),
