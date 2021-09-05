@@ -1,5 +1,5 @@
 // swift-tools-version:5.5
-// swiftlint:disable explicit_top_level_acl
+// swiftlint:disable explicit_top_level_acl line_length
 import PackageDescription
 
 let package = Package(
@@ -18,20 +18,13 @@ let package = Package(
     .package(url: "https://github.com/eneko/SourceDocs", from: "1.2.1"), // dev
     .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.47.0"), // dev
     .package(url: "https://github.com/realm/SwiftLint", from: "0.43.0"), // dev
-    .package(
-      url: "https://github.com/shibapm/Rocket.git",
-      from: "1.2.0"
-    ), // dev
-    .package(
-      url: "https://github.com/mattpolzin/swift-test-codecov",
-      .branch("master")
-    ), // dev
+    .package(url: "https://github.com/shibapm/Rocket.git", from: "1.2.0"), // dev
+    .package(url: "https://github.com/mattpolzin/swift-test-codecov", .branch("master")), // dev
 
-  .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
-  .package(url: "https://github.com/brightdigit/PrchNIO.git", .branch("main"))
+    .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+    .package(url: "https://github.com/brightdigit/PrchNIO.git", from: "0.1.0")
   ],
   targets: [
-
     .target(name: "PrchVapor", dependencies: ["PrchNIO", .product(name: "Vapor", package: "vapor")]),
     .testTarget(name: "PrchVaporTests", dependencies: ["PrchVapor"])
   ]
@@ -43,9 +36,22 @@ let package = Package(
   let requiredCoverage: Int = 85
 
   let config = PackageConfiguration([
+    "rocket": [
+      "steps": [
+        ["hide_dev_dependencies": ["package_path": "Package@swift-5.5.swift"]],
+        "hide_dev_dependencies",
+        "git_add",
+        "commit",
+        "tag",
+        "unhide_dev_dependencies",
+        ["unhide_dev_dependencies": ["package_path": "Package@swift-5.5.swift"]],
+        "git_add",
+        ["commit": ["message": "Unhide dev dependencies"]]
+      ]
+    ],
     "komondor": [
       "pre-push": [
-        "swift test --enable-code-coverage --enable-test-discovery",
+        // "swift test --enable-code-coverage --enable-test-discovery",
         // swiftlint:disable:next line_length
         "swift run swift-test-codecov .build/debug/codecov/SyndiKit.json --minimum \(requiredCoverage)"
       ],
@@ -54,9 +60,9 @@ let package = Package(
         "swift run swiftformat .",
         "swift run swiftlint autocorrect",
         "swift run sourcedocs generate build --clean --reproducible-docs --all-modules",
-        "git add ."
-        // "swift run swiftformat --lint .",
-        // "swift run swiftlint"
+        "git add .",
+        "swift run swiftformat --lint .",
+        "swift run swiftlint"
       ]
     ]
   ]).write()

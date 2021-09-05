@@ -1,65 +1,79 @@
-//
-//  File.swift
-//  File
-//
-//  Created by Leo Dion on 8/31/21.
-//
-
 import Prch
-import Vapor
 import PrchNIO
+import Vapor
 
-extension ClientResponse : Prch.Response {
+extension ClientResponse: Prch.Response {
   public var data: Data? {
-    self.body.map{
+    body.map {
       Data(buffer: $0)
     }
   }
-  
+
   public var statusCode: Int? {
-    Int(self.status.code)
+    Int(status.code)
   }
 }
-public struct SessionClient : EventLoopSession {
+
+extension URI {
+  init(components: URLComponents) {
+    self.init(
+      scheme: .init(components.scheme),
+      host: components.host,
+      port: components.port,
+      path: components.path,
+      query: components.query,
+      fragment: components.fragment
+    )
+  }
+}
+
+public struct SessionClient: EventLoopSession {
   public init(client: Client) {
     self.client = client
   }
-  
+
   public func nextEventLoop() -> EventLoop {
-    self.client.eventLoop
+    client.eventLoop
   }
-  
-  let client : Client
+
+  let client: Client
   public func beginRequest(_ request: ClientRequest) -> EventLoopFuture<Prch.Response> {
-    self.client.send(request).map{ $0 as Prch.Response}
+    client.send(request).map { $0 as Prch.Response }
   }
-  public func createRequest<ResponseType>(_ request: APIRequest<ResponseType>, withBaseURL baseURL: URL, andHeaders headers: [String : String]) throws -> ClientRequest where ResponseType : APIResponseValue {
-    guard var componenets = URLComponents(url: baseURL.appendingPathComponent(request.path), resolvingAgainstBaseURL: false) else {
+
+  public func createRequest<ResponseType>(
+    _ request: APIRequest<ResponseType>,
+    withBaseURL baseURL: URL,
+    andHeaders headers: [String: String]
+  ) throws -> ClientRequest where ResponseType: APIResponseValue {
+    guard var components = URLComponents(
+      url: baseURL.appendingPathComponent(request.path),
+      resolvingAgainstBaseURL: false
+    ) else {
       throw APIClientError.badURL(baseURL, request.path)
     }
-    
+
     var queryItems = [URLQueryItem]()
     for (key, value) in request.queryParameters {
       if !String(describing: value).isEmpty {
         queryItems.append(URLQueryItem(name: key, value: String(describing: value)))
       }
     }
-    componenets.queryItems = queryItems
-    
+    components.queryItems = queryItems
+
     var urlRequest = ClientRequest()
-    
-    let uri = URI(scheme: .init(componenets.scheme), host: componenets.host, port: componenets.port, path: componenets.path, query: componenets.query, fragment: componenets.fragment)
-    
-    urlRequest.url = uri
-    
+    urlRequest.url = URI(components: components)
     urlRequest.method = HTTPMethod(rawValue: request.service.method)
     
-    urlRequest.headers = HTTPHeaders(request.headers.merging(headers, uniquingKeysWith: { requestHeaderKey, _ in
-      requestHeaderKey
-    }).map({$0}))
-    
+    let headerDict = request.headers.merging(
+      headers, uniquingKeysWith: { requestHeaderKey, _ in
+        requestHeaderKey
+      }
+    )
+    urlRequest.headers = HTTPHeaders(Array(headerDict))
+
     if let encodeBody = request.encodeBody {
-      urlRequest.body = try  ByteBuffer(data: encodeBody(JSONEncoder()))
+      urlRequest.body = try ByteBuffer(data: encodeBody(JSONEncoder()))
     }
     return urlRequest
   }
