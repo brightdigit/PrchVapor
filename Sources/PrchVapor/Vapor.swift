@@ -64,7 +64,7 @@ public struct SessionClient: EventLoopSession {
     var urlRequest = ClientRequest()
     urlRequest.url = URI(components: components)
     urlRequest.method = HTTPMethod(rawValue: request.service.method)
-    
+
     let headerDict = request.headers.merging(
       headers, uniquingKeysWith: { requestHeaderKey, _ in
         requestHeaderKey
