@@ -1,8 +1,8 @@
 import XCTest
 
-import SpinetailTests
+import PrchVaporTests
 
 var tests = [XCTestCaseEntry]()
-tests += SpinetailTests.__allTests()
+tests += PrchVaporTests.__allTests()
 
 XCTMain(tests)
