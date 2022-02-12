@@ -2,7 +2,7 @@ import Prch
 import PrchNIO
 import Vapor
 
-extension ClientResponse: Prch.Response {
+extension ClientResponse: ResponseComponents {
   public var data: Data? {
     body.map {
       Data(buffer: $0)
@@ -28,7 +28,11 @@ extension URI {
 }
 
 public struct SessionClient: EventLoopSession {
-  public init(client: Client) {
+
+  
+  public typealias RequestType = ClientRequest
+  
+  public init(client: Vapor.Client) {
     self.client = client
   }
 
@@ -36,16 +40,13 @@ public struct SessionClient: EventLoopSession {
     client.eventLoop
   }
 
-  let client: Client
-  public func beginRequest(_ request: ClientRequest) -> EventLoopFuture<Prch.Response> {
-    client.send(request).map { $0 as Prch.Response }
+  let client: Vapor.Client
+  
+  public func beginRequest(_ request: RequestType) -> EventLoopFuture<ResponseComponents> {
+    client.send(request).map { $0 as ResponseComponents }
   }
 
-  public func createRequest<ResponseType>(
-    _ request: APIRequest<ResponseType>,
-    withBaseURL baseURL: URL,
-    andHeaders headers: [String: String]
-  ) throws -> ClientRequest where ResponseType: APIResponseValue {
+  public func createRequest<RequestType>(_ request: RequestType, withBaseURL baseURL: URL, andHeaders headers: [String : String], usingEncoder encoder: RequestEncoder) throws -> ClientRequest where RequestType : Prch.Request {
     guard var components = URLComponents(
       url: baseURL.appendingPathComponent(request.path),
       resolvingAgainstBaseURL: false
@@ -63,7 +64,7 @@ public struct SessionClient: EventLoopSession {
 
     var urlRequest = ClientRequest()
     urlRequest.url = URI(components: components)
-    urlRequest.method = HTTPMethod(rawValue: request.service.method)
+    urlRequest.method = HTTPMethod(rawValue: request.method)
 
     let headerDict = request.headers.merging(
       headers, uniquingKeysWith: { requestHeaderKey, _ in
