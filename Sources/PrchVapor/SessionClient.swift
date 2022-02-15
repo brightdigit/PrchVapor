@@ -2,36 +2,11 @@ import Prch
 import PrchNIO
 import Vapor
 
-extension ClientResponse: ResponseComponents {
-  public var data: Data? {
-    body.map {
-      Data(buffer: $0)
-    }
-  }
-
-  public var statusCode: Int? {
-    Int(status.code)
-  }
-}
-
-extension URI {
-  init(components: URLComponents) {
-    self.init(
-      scheme: .init(components.scheme),
-      host: components.host,
-      port: components.port,
-      path: components.path,
-      query: components.query,
-      fragment: components.fragment
-    )
-  }
-}
-
 public struct SessionClient: EventLoopSession {
-
-  
   public typealias RequestType = ClientRequest
-  
+
+  let client: Vapor.Client
+
   public init(client: Vapor.Client) {
     self.client = client
   }
@@ -40,18 +15,23 @@ public struct SessionClient: EventLoopSession {
     client.eventLoop
   }
 
-  let client: Vapor.Client
-  
-  public func beginRequest(_ request: RequestType) -> EventLoopFuture<ResponseComponents> {
+  public func beginRequest(
+    _ request: RequestType
+  ) -> EventLoopFuture<ResponseComponents> {
     client.send(request).map { $0 as ResponseComponents }
   }
 
-  public func createRequest<RequestType>(_ request: RequestType, withBaseURL baseURL: URL, andHeaders headers: [String : String], usingEncoder encoder: RequestEncoder) throws -> ClientRequest where RequestType : Prch.Request {
+  public func createRequest<RequestType>(
+    _ request: RequestType,
+    withBaseURL baseURL: URL,
+    andHeaders headers: [String: String],
+    usingEncoder _: RequestEncoder
+  ) throws -> ClientRequest where RequestType: Prch.Request {
     guard var components = URLComponents(
       url: baseURL.appendingPathComponent(request.path),
       resolvingAgainstBaseURL: false
     ) else {
-      throw APIClientError.badURL(baseURL, request.path)
+      throw ClientError.badURL(baseURL, request.path)
     }
 
     var queryItems = [URLQueryItem]()
