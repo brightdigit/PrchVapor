@@ -25,7 +25,7 @@ public struct SessionClient: EventLoopSession {
     _ request: RequestType,
     withBaseURL baseURL: URL,
     andHeaders headers: [String: String],
-    usingEncoder _: RequestEncoder
+    usingEncoder encoder: RequestEncoder
   ) throws -> ClientRequest where RequestType: Prch.Request {
     guard var components = URLComponents(
       url: baseURL.appendingPathComponent(request.path),
@@ -54,7 +54,7 @@ public struct SessionClient: EventLoopSession {
     urlRequest.headers = HTTPHeaders(Array(headerDict))
 
     if let encodeBody = request.encodeBody {
-      urlRequest.body = try ByteBuffer(data: encodeBody(JSONEncoder()))
+      urlRequest.body = try ByteBuffer(data: encodeBody(encoder))
     }
     return urlRequest
   }
