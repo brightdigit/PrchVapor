@@ -1,0 +1,286 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "async-http-client",
+        "repositoryURL": "https://github.com/swift-server/async-http-client.git",
+        "state": {
+          "branch": null,
+          "revision": "7a4dfe026f6ee0f8ad741b58df74c60af296365d",
+          "version": "1.9.0"
+        }
+      },
+      {
+        "package": "async-kit",
+        "repositoryURL": "https://github.com/vapor/async-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "e2f741640364c1d271405da637029ea6a33f754e",
+          "version": "1.11.1"
+        }
+      },
+      {
+        "package": "console-kit",
+        "repositoryURL": "https://github.com/vapor/console-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "75ea3b627d88221440b878e5dfccc73fd06842ed",
+          "version": "4.2.7"
+        }
+      },
+      {
+        "package": "Komondor",
+        "repositoryURL": "https://github.com/shibapm/Komondor",
+        "state": {
+          "branch": null,
+          "revision": "90b087b1e39069684b1ff4bf915c2aae594f2d60",
+          "version": "1.1.3"
+        }
+      },
+      {
+        "package": "Logger",
+        "repositoryURL": "https://github.com/shibapm/Logger",
+        "state": {
+          "branch": null,
+          "revision": "53c3ecca5abe8cf46697e33901ee774236d94cce",
+          "version": "0.2.3"
+        }
+      },
+      {
+        "package": "multipart-kit",
+        "repositoryURL": "https://github.com/vapor/multipart-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "2dd9368a3c9580792b77c7ef364f3735909d9996",
+          "version": "4.5.1"
+        }
+      },
+      {
+        "package": "PackageConfig",
+        "repositoryURL": "https://github.com/shibapm/PackageConfig.git",
+        "state": {
+          "branch": null,
+          "revision": "58523193c26fb821ed1720dcd8a21009055c7cdb",
+          "version": "1.1.3"
+        }
+      },
+      {
+        "package": "Prch",
+        "repositoryURL": "https://github.com/brightdigit/Prch.git",
+        "state": {
+          "branch": null,
+          "revision": "74513ceb865358b457a656290ded54ed67de1702",
+          "version": "0.2.0-beta.1"
+        }
+      },
+      {
+        "package": "PrchNIO",
+        "repositoryURL": "https://github.com/brightdigit/PrchNIO.git",
+        "state": {
+          "branch": null,
+          "revision": "337d0b2f77b0c4ad5b5b3bad6768a9ecd70b003c",
+          "version": "0.2.0-beta.1"
+        }
+      },
+      {
+        "package": "Rocket",
+        "repositoryURL": "https://github.com/shibapm/Rocket.git",
+        "state": {
+          "branch": null,
+          "revision": "9880a5beb7fcb9e61ddd5764edc1700b8c418deb",
+          "version": "1.2.1"
+        }
+      },
+      {
+        "package": "routing-kit",
+        "repositoryURL": "https://github.com/vapor/routing-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "5603b81ceb744b8318feab1e60943704977a866b",
+          "version": "4.3.1"
+        }
+      },
+      {
+        "package": "ShellOut",
+        "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
+        "state": {
+          "branch": null,
+          "revision": "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
+          "version": "2.3.0"
+        }
+      },
+      {
+        "package": "SourceKitten",
+        "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
+        "state": {
+          "branch": null,
+          "revision": "558628392eb31d37cb251cfe626c53eafd330df6",
+          "version": "0.31.1"
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
+        "state": {
+          "branch": null,
+          "revision": "e394bf350e38cb100b6bc4172834770ede1b7232",
+          "version": "1.0.3"
+        }
+      },
+      {
+        "package": "swift-backtrace",
+        "repositoryURL": "https://github.com/swift-server/swift-backtrace.git",
+        "state": {
+          "branch": null,
+          "revision": "d3e04a9d4b3833363fb6192065b763310b156d54",
+          "version": "1.3.1"
+        }
+      },
+      {
+        "package": "swift-crypto",
+        "repositoryURL": "https://github.com/apple/swift-crypto.git",
+        "state": {
+          "branch": null,
+          "revision": "a8911e0fadc25aef1071d582355bd1037a176060",
+          "version": "2.0.4"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
+        }
+      },
+      {
+        "package": "swift-metrics",
+        "repositoryURL": "https://github.com/apple/swift-metrics.git",
+        "state": {
+          "branch": null,
+          "revision": "3edd2f57afc4e68e23c3e4956bc8b65ca6b5b2ff",
+          "version": "2.2.0"
+        }
+      },
+      {
+        "package": "swift-nio",
+        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "154f1d32366449dcccf6375a173adf4ed2a74429",
+          "version": "2.38.0"
+        }
+      },
+      {
+        "package": "swift-nio-extras",
+        "repositoryURL": "https://github.com/apple/swift-nio-extras.git",
+        "state": {
+          "branch": null,
+          "revision": "f73ca5ee9c6806800243f1ac415fcf82de9a4c91",
+          "version": "1.10.2"
+        }
+      },
+      {
+        "package": "swift-nio-http2",
+        "repositoryURL": "https://github.com/apple/swift-nio-http2.git",
+        "state": {
+          "branch": null,
+          "revision": "000ca94f9de92c95b9ac85d44600b7b0fe25a3e5",
+          "version": "1.19.2"
+        }
+      },
+      {
+        "package": "swift-nio-ssl",
+        "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
+        "state": {
+          "branch": null,
+          "revision": "52a486ff6de9bc3e26bf634c5413c41c5fa89ca5",
+          "version": "2.17.2"
+        }
+      },
+      {
+        "package": "swift-nio-transport-services",
+        "repositoryURL": "https://github.com/apple/swift-nio-transport-services.git",
+        "state": {
+          "branch": null,
+          "revision": "8ab824b140d0ebcd87e9149266ddc353e3705a3e",
+          "version": "1.11.4"
+        }
+      },
+      {
+        "package": "SwiftFormat",
+        "repositoryURL": "https://github.com/nicklockwood/SwiftFormat",
+        "state": {
+          "branch": null,
+          "revision": "f14f4f717e7e1d275acd7557d64c94cfef5723e6",
+          "version": "0.49.4"
+        }
+      },
+      {
+        "package": "SwiftLint",
+        "repositoryURL": "https://github.com/realm/SwiftLint",
+        "state": {
+          "branch": null,
+          "revision": "b4a54f32df66008d30f0229446831cb823576c42",
+          "version": "0.46.2"
+        }
+      },
+      {
+        "package": "SwiftShell",
+        "repositoryURL": "https://github.com/kareman/SwiftShell",
+        "state": {
+          "branch": null,
+          "revision": "a6014fe94c3dbff0ad500e8da4f251a5d336530b",
+          "version": "5.1.0-beta.1"
+        }
+      },
+      {
+        "package": "SwiftyTextTable",
+        "repositoryURL": "https://github.com/scottrhoyt/SwiftyTextTable.git",
+        "state": {
+          "branch": null,
+          "revision": "c6df6cf533d120716bff38f8ff9885e1ce2a4ac3",
+          "version": "0.9.0"
+        }
+      },
+      {
+        "package": "SWXMLHash",
+        "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
+        "state": {
+          "branch": null,
+          "revision": "9183170d20857753d4f331b0ca63f73c60764bf3",
+          "version": "5.0.2"
+        }
+      },
+      {
+        "package": "vapor",
+        "repositoryURL": "https://github.com/vapor/vapor.git",
+        "state": {
+          "branch": null,
+          "revision": "18e9419cae5049e43ca1e8002ca3cf0449f2c8ed",
+          "version": "4.55.0"
+        }
+      },
+      {
+        "package": "websocket-kit",
+        "repositoryURL": "https://github.com/vapor/websocket-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "ff8fbce837ef01a93d49c6fb49a72be0f150dac7",
+          "version": "2.3.0"
+        }
+      },
+      {
+        "package": "Yams",
+        "repositoryURL": "https://github.com/jpsim/Yams",
+        "state": {
+          "branch": null,
+          "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
+          "version": "4.0.6"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
