@@ -1,14 +1,23 @@
 import Prch
 import Vapor
 
-extension ClientResponse: ResponseComponents {
-  public var data: Data? {
+
+protocol NIOResponse : SessionResponse {
+  var status: HTTPStatus { get }
+  var body: ByteBuffer? { get }
+}
+
+extension NIOResponse {
+  public var statusCode: Int {
+    Int(self.statusCode)
+  }
+  
+  public var data: Data {
     body.map {
       Data(buffer: $0)
-    }
-  }
-
-  public var statusCode: Int? {
-    Int(status.code)
+    } ?? .init()
   }
 }
+
+
+extension ClientResponse: NIOResponse {}

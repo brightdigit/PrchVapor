@@ -1,61 +1,51 @@
 import Prch
-import PrchNIO
+import PrchModel
 import Vapor
 
-public struct SessionClient: EventLoopSession {
+extension Client {
+  public func session () -> any Prch.Session {
+    return SessionClient(client: self)
+  }
+}
+
+public struct SessionClient: Prch.Session {
   public typealias RequestType = ClientRequest
-
+  
+  public typealias ResponseType = ClientResponse
+  
+  public typealias AuthorizationType = URLSessionAuthorization
+  
   let client: Vapor.Client
-
+  
   public init(client: Vapor.Client) {
     self.client = client
   }
-
-  public func nextEventLoop() -> EventLoop {
-    client.eventLoop
-  }
-
-  public func beginRequest(
-    _ request: RequestType
-  ) -> EventLoopFuture<ResponseComponents> {
-    client.send(request).map { $0 as ResponseComponents }
-  }
-
-  public func createRequest<RequestType>(
-    _ request: RequestType,
-    withBaseURL baseURL: URL,
-    andHeaders headers: [String: String],
-    usingEncoder encoder: RequestEncoder
-  ) throws -> ClientRequest where RequestType: Prch.Request {
-    guard var components = URLComponents(
-      url: baseURL.appendingPathComponent(request.path),
-      resolvingAgainstBaseURL: false
-    ) else {
-      throw ClientError.badURL(baseURL, request.path)
-    }
-
-    var queryItems = [URLQueryItem]()
-    for (key, value) in request.queryParameters {
-      if !String(describing: value).isEmpty {
-        queryItems.append(URLQueryItem(name: key, value: String(describing: value)))
-      }
-    }
-    components.queryItems = queryItems
-
+  public func data<RequestType: ServiceCall>(
+    request: RequestType,
+    withBaseURL baseURLComponents: URLComponents,
+    withHeaders headers: [String: String],
+    authorizationManager: any AuthorizationManager<URLSessionAuthorization>,
+    usingEncoder encoder: any Coder<Data>
+  ) async throws -> ClientResponse {
+    var componenents = baseURLComponents
+    componenents.path = "/\(request.path)"
+    componenents.queryItems = request.parameters.map(URLQueryItem.init)
+    
+    
     var urlRequest = ClientRequest()
-    urlRequest.url = URI(components: components)
-    urlRequest.method = HTTPMethod(rawValue: request.method)
-
+    urlRequest.url = URI(components: componenents)
+    urlRequest.method = HTTPMethod(rawValue: request.method.rawValue)
+    
     let headerDict = request.headers.merging(
       headers, uniquingKeysWith: { requestHeaderKey, _ in
         requestHeaderKey
       }
     )
     urlRequest.headers = HTTPHeaders(Array(headerDict))
-
-    if let encodeBody = request.encodeBody {
-      urlRequest.body = try ByteBuffer(data: encodeBody(encoder))
+    
+    if case let .encodable(value) = request.body.encodable {
+      urlRequest.body = try ByteBuffer(data: encoder.encode(value))
     }
-    return urlRequest
+    return try await self.client.send(urlRequest)
   }
 }
