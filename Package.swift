@@ -9,7 +9,7 @@ let package = Package(
     .library(name: "PrchVapor", targets: ["PrchVapor"])
   ],
   dependencies: [
-    .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+    .package(url: "https://github.com/vapor/vapor.git", from: "4.76.0"),
     .package(url: "https://github.com/brightdigit/PrchNIO.git", branch: "prch2")
   ],
   targets: [
