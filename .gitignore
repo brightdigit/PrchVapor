@@ -158,3 +158,4 @@ xcuserdata
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpm,swiftpackagemanager,xcode,macos,linux
 node_modules
+.mint

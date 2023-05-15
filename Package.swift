@@ -10,7 +10,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/vapor/vapor.git", from: "4.76.0"),
-    .package(url: "https://github.com/brightdigit/PrchNIO.git", branch: "prch2")
+    .package(url: "https://github.com/brightdigit/PrchNIO.git", from: "1.0.0-alpha.1")
   ],
   targets: [
     .target(name: "PrchVapor", dependencies: ["PrchNIO", .product(name: "Vapor", package: "vapor")])

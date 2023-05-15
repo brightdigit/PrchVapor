@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/brightdigit/Prch",
       "state" : {
-        "branch" : "floxbx",
-        "revision" : "7023fbef4bd93e0f92170b9d503874bd9c0c2fec"
+        "revision" : "076095e36d7a7f9d159af189033ea019b9553cd7",
+        "version" : "1.0.0-alpha.1"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/brightdigit/PrchNIO.git",
       "state" : {
-        "branch" : "prch2",
-        "revision" : "b76730910f7a3c100e0d68abcdcad767cd38aea3"
+        "revision" : "939b21a3e8b34d6dd0746d429ef97254f3a2445a",
+        "version" : "1.0.0-alpha.1"
       }
     },
     {
